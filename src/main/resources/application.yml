@@ -1,0 +1,14 @@
+#spring.data.mongodb.uri= mongodb+srv://root:pass@cluster0-cqwib.mongodb.net/academic
+spring:
+  data:
+    mongodb:
+      authentication-database: admin
+      username: root
+      password: pass
+      database: academic
+      port: 27017
+      host: localhost
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
