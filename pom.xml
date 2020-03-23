@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.reator</groupId>
-	<artifactId>academic</artifactId>
+	<artifactId>spring-webflux</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>academic</name>
+	<name>spring-webflux</name>
 	<description>Demo project for Spring webFlux REST</description>
 
 	<properties>
@@ -34,12 +34,6 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springdoc</groupId>
-			<artifactId>springdoc-openapi-ui</artifactId>
-			<version>1.2.32</version>
 		</dependency>
 
 		<dependency>
