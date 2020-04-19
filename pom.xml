@@ -5,10 +5,10 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.2.5.RELEASE</version>
+		<version>2.2.6.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.reator</groupId>
+	<groupId>com.reactor</groupId>
 	<artifactId>spring-webflux</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>spring-webflux</name>
@@ -51,16 +51,10 @@
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>3.0.0-SNAPSHOT</version>
 		</dependency>
-
-		<!-- Nivel 3 Richardson - HATEOAS Libreria cambio nombre en version Spring
-			Boot 2.2 -->
 		<dependency>
-			<groupId>org.springframework.hateoas</groupId>
-			<artifactId>spring-hateoas</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>io.projectreactor.addons</groupId>
-			<artifactId>reactor-extra</artifactId>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-bean-validators</artifactId>
+			<version>3.0.0-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
@@ -110,6 +104,12 @@
 	</dependencies>
 
 	<repositories>
+		<repository>
+			<id>jcenter-release</id>
+			<name>jcenter</name>
+			<url>https://jcenter.bintray.com/</url>
+		</repository>
+
 		<repository>
 			<id>jcenter-snapshots</id>
 			<name>jcenter</name>

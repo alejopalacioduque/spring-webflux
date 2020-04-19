@@ -1,13 +1,12 @@
 package com.reactor.academic.controller;
 
-import com.reactor.academic.documment.Student;
 import com.reactor.academic.dto.EnrollmentDTO;
 import com.reactor.academic.exception.CourseException;
+import com.reactor.academic.exception.EnrollmentException;
 import com.reactor.academic.exception.StudentException;
 import com.reactor.academic.mapper.EnrolledMapper;
 import com.reactor.academic.service.ICourseService;
 import com.reactor.academic.service.IEnrollmentService;
-import com.reactor.academic.exception.EnrollmentException;
 import com.reactor.academic.service.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

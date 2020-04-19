@@ -1,4 +1,10 @@
-#spring.data.mongodb.uri= mongodb+srv://root:pass@cluster0-cqwib.mongodb.net/academic
+
+#spring:
+#  data:
+#    mongodb:
+#      uri: mongodb+srv://root:pass@cluster0-cqwib.mongodb.net/academic
+#      database: academic
+
 spring:
   data:
     mongodb:
