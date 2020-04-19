@@ -1,0 +1,1169 @@
+{
+	"info": {
+		"_postman_id": "4b1cb650-1942-4b8f-852b-83ba473d3bcd",
+		"name": "Spring-webFlux",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Request token To login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\" : \"admin\",\n\t\"password\" : \"root\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request token to login V2",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "usuario",
+								"value": "admin",
+								"type": "text"
+							},
+							{
+								"key": "clave",
+								"value": "root",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8080/v2/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v2",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Student",
+			"item": [
+				{
+					"name": "Antotations",
+					"item": [
+						{
+							"name": "Register Student",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBZG1pbmlzdHJhZG9yIl0sInN1YiI6ImFkbWluIiwiaWF0IjoxNTg3MjUwNDM5LCJleHAiOjE1ODcyNTA1NTl9.7hKBq4jDEuxt43_1d_-Wl_jNH0XOlxmagBNetFcAVwyoca7czt5CjrbumuCPhtw730bHnbMradoKxOPGe0td8g",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"id\" : \"00002\",\n\t\"firstName\": \"Juan\",\n\t\"lastName\" : \"Galindo\",\n\t\"dni\" : \"00002\",\n\t\"age\": 34\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/students",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"students"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Modify Student",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBZG1pbmlzdHJhZG9yIl0sInN1YiI6ImFkbWluIiwiaWF0IjoxNTg3MjUxNDUzLCJleHAiOjE1ODcyNTE1NzN9.tNFs8DXylJEL4MK04WKzByCnyDaontA0IstWCTlUScW5XBEg9bfz0AW47EA2cGE8PlQqYEeNPddpTiR0vhPrTA",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"id\" : \"00002\",\n\t\"firstName\": \"Juan\",\n\t\"lastName\" : \"Ramirez\",\n\t\"dni\" : \"00002\",\n\t\"age\": 34\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/students",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"students"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Students",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBZG1pbmlzdHJhZG9yIl0sInN1YiI6ImFkbWluIiwiaWF0IjoxNTg3MjUzMDI1LCJleHAiOjE1ODcyNTMxNDV9.ahxG5TBZGtX3mM7x1l4788lv2W--n9SzRoANJ95FwLdbUGszvrzKa0g7phzKfxEapX1g5nGo235VCslzKpEqjg"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/api/students",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"students"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Student By ID",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBZG1pbmlzdHJhZG9yIl0sInN1YiI6ImFkbWluIiwiaWF0IjoxNTg3MjUzNDI1LCJleHAiOjE1ODcyNTM1NDV9.55lG84DfYDO8Nw-Di_LG5Zom6tzsg5bketTL4dteit4Q_5-snz9tCOGuXKKB1mDpeMzx0EGUEGvhkO9YglVpWQ"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/api/students/listById?idStudent=00001",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"students",
+										"listById"
+									],
+									"query": [
+										{
+											"key": "idStudent",
+											"value": "00001"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Students Parallel",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBZG1pbmlzdHJhZG9yIl0sInN1YiI6ImFkbWluIiwiaWF0IjoxNTg3MjUzMTg2LCJleHAiOjE1ODcyNTMzMDZ9.QsO-8mGgAxB7F4fS8fdMEjm9mQ1LOPWsOCXrKxVgKW3rPk7fcNW-vJOIu37emtvE7leKUsNm17CfHWXPmm3ihA"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/api/students/sortedByAgeParallel",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"students",
+										"sortedByAgeParallel"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Student",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBZG1pbmlzdHJhZG9yIl0sInN1YiI6ImFkbWluIiwiaWF0IjoxNTg3MjUyNzgxLCJleHAiOjE1ODcyNTI5MDF9.1cywzE2OQO1EPShJpAu3kvmBQdDc4EygvVi-02DtaiDjo86QIkQ8Hz97qO5EJ8o5dxfG_4dbJreelne58HMNJg",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/api/students?idStudent=00002",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"students"
+									],
+									"query": [
+										{
+											"key": "idStudent",
+											"value": "00002"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Funtional",
+					"item": [
+						{
+							"name": "Register Student",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBZG1pbmlzdHJhZG9yIl0sInN1YiI6ImFkbWluIiwiaWF0IjoxNTg3MjU0OTI3LCJleHAiOjE1ODcyNTUwNDd9.mWcHro1zHCY73btlK9V8DSuxy782KTSHNkmVsq8Z7vfuQ8QVYbN7YD4dZQaOtk9MG58sRShtmgVWuWkKLV2qgQ",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"id\" : \"00001\",\n\t\"firstName\": \"Juan\",\n\t\"lastName\" : \"Galindo\",\n\t\"dni\" : \"00001\",\n\t\"age\": 36\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8080/students",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"students"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Modify Student",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBZG1pbmlzdHJhZG9yIl0sInN1YiI6ImFkbWluIiwiaWF0IjoxNTg3MjU1MDU4LCJleHAiOjE1ODcyNTUxNzh9.ckVKN0DFZEW8fRSyhC-ImWmvy00jJsbV0MdQKQCVFK9W8wanM3rWBQYGlrqQk_QTY3IUesSnbbMK48mX73m7_g",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"id\" : \"00002\",\n\t\"firstName\": \"Juan\",\n\t\"lastName\" : \"Ramirez\",\n\t\"dni\" : \"00002\",\n\t\"age\": 40\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8080/students",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"students"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Students",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBZG1pbmlzdHJhZG9yIl0sInN1YiI6ImFkbWluIiwiaWF0IjoxNTg3MjU1MjAyLCJleHAiOjE1ODcyNTUzMjJ9.qnkd2Q7PDPybSp0Jh_HPnUMZDW81P7DW0gTCuza3XmqkPm07Jlv4A6oiCUqENu2-D7FoBVPpPkr1fLyqC3Gx1Q"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/students",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"students"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Student By ID",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBZG1pbmlzdHJhZG9yIl0sInN1YiI6ImFkbWluIiwiaWF0IjoxNTg3MjU1MjM2LCJleHAiOjE1ODcyNTUzNTZ9.AonNyn4nUq3gSNLSE2mUqUatlsjg6OPXFNB6x0ZSK2b6-eol_EIU8bwUgP_T7LUcxytumv2MbU5uuzTxy61TQA"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/students/listById?idStudent=00001",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"students",
+										"listById"
+									],
+									"query": [
+										{
+											"key": "idStudent",
+											"value": "00001"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Students Parallel",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBZG1pbmlzdHJhZG9yIl0sInN1YiI6ImFkbWluIiwiaWF0IjoxNTg3MjU1NDgzLCJleHAiOjE1ODcyNTU2MDN9.rz2Sr-C0iESeVQGpcXZjARqb1zaNFN_KeXKlIvJ5r3uxXcspXcpDZx0WbaMLD_H6tdLgAV4ulyW-88fC3K9YsA"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/students/sortedByAgeParallel",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"students",
+										"sortedByAgeParallel"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Student",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBZG1pbmlzdHJhZG9yIl0sInN1YiI6ImFkbWluIiwiaWF0IjoxNTg3MjU1MTI0LCJleHAiOjE1ODcyNTUyNDR9.aRGBcmeiDwCIiSYH5qA_yL8QvjebsAuwPamiJ9TxhXHPEq53sAbHGjn0up0guCiyYr8pD9unniwzaKJsJCzs7w",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/students?idStudent=00002",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"students"
+									],
+									"query": [
+										{
+											"key": "idStudent",
+											"value": "00002"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "Course",
+			"item": [
+				{
+					"name": "Antotations",
+					"item": [
+						{
+							"name": "Register Course",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBZG1pbmlzdHJhZG9yIl0sInN1YiI6ImFkbWluIiwiaWF0IjoxNTg3MjU4NzI5LCJleHAiOjE1ODcyNTg4NDl9.cn8y6hnta4WXgNS9ZTNPw7NFr8ONRe5-CU3heptQEYn9AVXtv4OPuyRx3FrFXkIuXZDxsl1-27GpzbtM42r67w"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"id\" : \"C001\",\n\t\"name\": \"Math\",\n\t\"acronym\" : \"MT\",\n\t\"state\" : true\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/courses",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"courses"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Modify Course",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBZG1pbmlzdHJhZG9yIl0sInN1YiI6ImFkbWluIiwiaWF0IjoxNTg3MjU4NzgxLCJleHAiOjE1ODcyNTg5MDF9.GETQqOFesBZh1RmaQ-qLO-qAccgFisWHUT6I0gZBvHHdUeJRxGL7izgZ9cYEYAO-Ep1pQrIbveW-l6ccn37yuQ",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"id\" : \"C001\",\n\t\"name\": \"Math\",\n\t\"acronym\" : \"MT\",\n\t\"state\" : false\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/courses",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"courses"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Courses",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBZG1pbmlzdHJhZG9yIl0sInN1YiI6ImFkbWluIiwiaWF0IjoxNTg3MjU4OTk1LCJleHAiOjE1ODcyNTkxMTV9.PpKv9MwF1AITqcPCRHVlQAxzY3cK5hKhZ3_VHPRlWdW0_9tc8dwHR1iQWvdqHAldkf9WUP1f0zifxXM3ghioqQ"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/api/courses",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"courses"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Course",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBZG1pbmlzdHJhZG9yIl0sInN1YiI6ImFkbWluIiwiaWF0IjoxNTg3MjU4ODkwLCJleHAiOjE1ODcyNTkwMTB9.KuejlQ-FZHKeBI_zcx0aHUfVvjYJJaEETCyICZd6HvS16b7UeFZf2BrDsQ0vpmw_c05F5_4WoDrtJK1YJBGIpQ",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/api/courses?idCourse=C001",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"courses"
+									],
+									"query": [
+										{
+											"key": "idCourse",
+											"value": "C001"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Course By ID",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBZG1pbmlzdHJhZG9yIl0sInN1YiI6ImFkbWluIiwiaWF0IjoxNTg3MjU5MDgzLCJleHAiOjE1ODcyNTkyMDN9.S4-jYAClYMi1e5IZkgeZ4lX9raG8EDdWBLNvLg99NNKF4iBiGXToMz-D_QkvkjFbGvU2ScAqPuKuAmtQGa9x9Q"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/api/courses/listById?idCourse=C001",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"courses",
+										"listById"
+									],
+									"query": [
+										{
+											"key": "idCourse",
+											"value": "C001"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Funtional",
+					"item": [
+						{
+							"name": "Register Course",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBZG1pbmlzdHJhZG9yIl0sInN1YiI6ImFkbWluIiwiaWF0IjoxNTg3MjU5NDM0LCJleHAiOjE1ODcyNTk1NTR9.2zNmDq1piEABlPJks9IrTH2xipsF6AmGU7qu8b3WwS81Qv49AjqP8OzgQQNFfSnUNbhJP4rbBTHZqHy9TRbxlg"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"id\" : \"C001\",\n\t\"name\": \"Math\",\n\t\"acronym\" : \"MT\",\n\t\"state\" : true\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8080/courses",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"courses"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Modify Course",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBZG1pbmlzdHJhZG9yIl0sInN1YiI6ImFkbWluIiwiaWF0IjoxNTg3MjU5NTU4LCJleHAiOjE1ODcyNTk2Nzh9.seGgB-0qW4rvqL0one5OoODtdNL5_OlsFwsBHJDlwkyDFDWWpHWegPf6duIV6276z5LAnEjE59Yx_vtQAqpS5A",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"id\" : \"C001\",\n\t\"name\": \"Math\",\n\t\"acronym\" : \"MT\",\n\t\"state\" : false\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8080/courses",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"courses"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Courses",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBZG1pbmlzdHJhZG9yIl0sInN1YiI6ImFkbWluIiwiaWF0IjoxNTg3MjYwNDg1LCJleHAiOjE1ODcyNjA2MDV9.hG_r8RFgI0Mcx8QhK3LWn_RI_ty2neq-gqIsuZhueWE-qEHXFE00q-OzOPDbDIRgvCbr_R1bnJk2FDVBCMLBNw"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/courses",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"courses"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Course",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBZG1pbmlzdHJhZG9yIl0sInN1YiI6ImFkbWluIiwiaWF0IjoxNTg3MjYwNDE0LCJleHAiOjE1ODcyNjA1MzR9.1PfvBBWgYM5X_1A3fAxwnZj64FJ7OT9gIFFQxpaX0PtmvYqb4vqQKJY_KCyFjpNF37RNmYngeBskSO4X2rqo1g",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/courses?idCourse=C001",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"courses"
+									],
+									"query": [
+										{
+											"key": "idCourse",
+											"value": "C001"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Course By ID",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBZG1pbmlzdHJhZG9yIl0sInN1YiI6ImFkbWluIiwiaWF0IjoxNTg3MjYwNTI2LCJleHAiOjE1ODcyNjA2NDZ9.qpV0ngxN8qiHzAF-u9RyNAQpqb3OOCCpXE-4O_CxWCW_oAvlhFnIFVu4nbQLqzh-UD7pff5-JjjdYe8eCvwWQA"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/courses/listById?idCourse=C001",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"courses",
+										"listById"
+									],
+									"query": [
+										{
+											"key": "idCourse",
+											"value": "C001"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "Enrollment",
+			"item": [
+				{
+					"name": "Anotations",
+					"item": [
+						{
+							"name": "Register Enrollment",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBZG1pbmlzdHJhZG9yIl0sInN1YiI6ImFkbWluIiwiaWF0IjoxNTg3MjY0NDc0LCJleHAiOjE1ODcyNjQ1OTR9.DT1PmpBsBDygSaUSddVGnFe_I85RFjPpuS1tOQhY2uhR4xOG9huVFbKWqCzbBqNGL3sinQIS82-c-v2TDC5JKA"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"student\" : {\n\t\t\"id\" : \"00002\",\n\t\t\"firstName\": \"Juan\",\n\t\t\"lastName\" : \"Galindo\",\n\t\t\"dni\" : \"00002\",\n\t\t\"age\": 34\n\t},\n\t\"enrollmentList\": [\n\t\t{\n\t\t\t\"id\" : \"C002\",\n\t\t\t\"name\": \"Math\",\n\t\t\t\"acronym\" : \"MT\",\n\t\t\t\"state\" : true\n\t\t},\n\t\t{\n\t\t\t\"id\" : \"C001\",\n\t\t\t\"name\": \"Math\",\n\t\t\t\"acronym\" : \"MT\",\n\t\t\t\"state\" : true\n\t\t}\n\t],\n\t\"state\": true\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/enrollments",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"enrollments"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Enrollment",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBZG1pbmlzdHJhZG9yIl0sInN1YiI6ImFkbWluIiwiaWF0IjoxNTg3MjY0NjQ4LCJleHAiOjE1ODcyNjQ3Njh9.fvofYZeNNzg5oTtOGtiB7ZrQBnSAcW-RjBcIO0uVfiQxXtccLwKhkw2mQuprkmbd4HN0yxaL-T78U_oKC4cILA"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/api/enrollments",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"enrollments"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Functional",
+					"item": [
+						{
+							"name": "Register Enrollment",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBZG1pbmlzdHJhZG9yIl0sInN1YiI6ImFkbWluIiwiaWF0IjoxNTg3MjY1NTY5LCJleHAiOjE1ODcyNjU2ODl9.jd9ZaTkrCx9XQWsCHRtJsdCFOTmB3K3EneWNOohDdPWusxIepJCCa-U4mxncdRpS-S6kwUJIpwEPek8ccQef6w"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"student\" : {\n\t\t\"id\" : \"00002\",\n\t\t\"firstName\": \"Juan\",\n\t\t\"lastName\" : \"Galindo\",\n\t\t\"dni\" : \"00002\",\n\t\t\"age\": 34\n\t},\n\t\"enrollmentList\": [\n\t\t{\n\t\t\t\"id\" : \"C002\",\n\t\t\t\"name\": \"Math\",\n\t\t\t\"acronym\" : \"MT\",\n\t\t\t\"state\" : true\n\t\t},\n\t\t{\n\t\t\t\"id\" : \"C001\",\n\t\t\t\"name\": \"Math\",\n\t\t\t\"acronym\" : \"MT\",\n\t\t\t\"state\" : true\n\t\t}\n\t],\n\t\"state\": true\n}"
+								},
+								"url": {
+									"raw": "http://localhost:8080/enrollments",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"enrollments"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Enrollment",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "bearer eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJBZG1pbmlzdHJhZG9yIl0sInN1YiI6ImFkbWluIiwiaWF0IjoxNTg3MjU4OTk1LCJleHAiOjE1ODcyNTkxMTV9.PpKv9MwF1AITqcPCRHVlQAxzY3cK5hKhZ3_VHPRlWdW0_9tc8dwHR1iQWvdqHAldkf9WUP1f0zifxXM3ghioqQ"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/enrollments",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"enrollments"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": "",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		}
+	]
+}
