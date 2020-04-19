@@ -1,6 +1,7 @@
 package com.reactor.academic.controller;
 
 import com.reactor.academic.dto.CourseDTO;
+import com.reactor.academic.exception.StudentException;
 import com.reactor.academic.mapper.CourseMapper;
 import com.reactor.academic.service.ICourseService;
 import com.reactor.academic.exception.CourseException;
@@ -40,8 +41,8 @@ public class CourseController {
                 .body(courseFlux));
     }
 
-    @GetMapping("/{idCourse}")
-    public Mono<ResponseEntity<CourseDTO>> listById(@Valid @PathVariable String idCourse){
+    @GetMapping("/listById")
+    public Mono<ResponseEntity<CourseDTO>> listById(@Valid @RequestParam(name = "idCourse") String idCourse){
        return service.listById(idCourse)
                 .map(p -> ResponseEntity.ok()
                         .contentType(MediaType.APPLICATION_STREAM_JSON)
@@ -52,31 +53,45 @@ public class CourseController {
     }
 
     @PostMapping
-    public Mono<ResponseEntity<CourseDTO>> register(@Valid @RequestBody CourseDTO course, final ServerHttpRequest req){
-        return service.register(courseMapper.toEntity(course))
-                .map(p -> ResponseEntity.created(URI.create(req.getURI().toString().concat("/").concat(p.getId())))
+    public Mono<ResponseEntity<CourseDTO>> register(@Valid @RequestBody CourseDTO courseDTO, final ServerHttpRequest req){
+        return service.listById(courseDTO.getId()).flatMap( course ->
+                Mono.just(ResponseEntity.accepted()
                         .contentType(MediaType.APPLICATION_STREAM_JSON)
-                        .body(courseMapper.toDTO(p))
-                ).onErrorMap(error -> new CourseException("Error to register the course with ID:" + course.getId()));
+                        .body(courseMapper.toDTO(course)))
+                ).switchIfEmpty(
+                    service.register(courseMapper.toEntity(courseDTO))
+                    .map(p -> ResponseEntity.created(URI.create(req.getURI().toString().concat("/").concat(p.getId())))
+                            .contentType(MediaType.APPLICATION_STREAM_JSON)
+                            .body(courseMapper.toDTO(p))
+                    ).onErrorMap(error ->
+                            new CourseException("Error to register the course with ID:" + courseDTO.getId())
+                    )
+                );
     }
 
     @PutMapping
-    public Mono<ResponseEntity<CourseDTO>> modify(@Valid @RequestBody CourseDTO course){
-        return service.modify(courseMapper.toEntity(course))
-                .map(p -> ResponseEntity.ok()
-                        .contentType(MediaType.APPLICATION_STREAM_JSON)
-                        .body(courseMapper.toDTO(p))
-                )
-                .defaultIfEmpty(ResponseEntity.notFound().build())
-                .onErrorMap(error -> new CourseException("Error to modify the course with ID:" + course.getId()));
+    public Mono<ResponseEntity<CourseDTO>> modify(@Valid @RequestBody CourseDTO courseDTO){
+        return service.listById(courseDTO.getId())
+                    .switchIfEmpty(
+                        Mono.error(new CourseException("Course with ID:" + courseDTO.getId() + " Not found"))
+                ).flatMap( course ->
+                        service.modify(courseMapper.toEntity(courseDTO))
+                                .map(p -> ResponseEntity.ok()
+                                        .contentType(MediaType.APPLICATION_STREAM_JSON)
+                                        .body(courseMapper.toDTO(p))
+                                )
+                                .defaultIfEmpty(ResponseEntity.notFound().build())
+                                .onErrorMap(error ->
+                                        new CourseException("Error to modify the course with ID:" + courseDTO.getId()))
+                );
     }
 
-    @DeleteMapping("/{idCourse}")
-    public Mono<ResponseEntity<Void>> delete(@Valid @PathVariable String idCourse){
+    @DeleteMapping()
+    public Mono<ResponseEntity<Void>> delete(@Valid @RequestParam(name = "idCourse") String idCourse){
         return service.listById(idCourse).
                 flatMap(p ->
                 service.delete(idCourse).
-                        then(Mono.just(new ResponseEntity<Void>(HttpStatus.NO_CONTENT)))
+                        then(Mono.just(new ResponseEntity<Void>(HttpStatus.OK)))
 
                 ).defaultIfEmpty(ResponseEntity.notFound().build())
                 .onErrorMap(error ->

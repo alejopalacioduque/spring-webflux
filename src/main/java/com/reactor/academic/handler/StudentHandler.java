@@ -14,6 +14,7 @@ import reactor.core.publisher.Mono;
 
 import java.net.URI;
 import java.util.Comparator;
+import java.util.Optional;
 
 import static org.springframework.web.reactive.function.BodyInserters.fromValue;
 
@@ -43,9 +44,9 @@ public class StudentHandler {
     }
 
     public Mono<ServerResponse> listById(ServerRequest req) {
-        String dni = req.pathVariable("idStudent");
+        Optional<String> dni = req.queryParam("idStudent");
 
-        return service.listById(dni)
+        return service.listById(dni.get())
                 .flatMap(p -> ServerResponse.ok()
                         .contentType(MediaType.APPLICATION_STREAM_JSON)
                         .body(fromValue(p))
@@ -58,14 +59,14 @@ public class StudentHandler {
     }
 
     public Mono<ServerResponse> register(ServerRequest req) {
-        Mono<Student> platoMono = req.bodyToMono(Student.class);
+        Mono<Student> studentMono = req.bodyToMono(Student.class);
 
-        return platoMono
+        return studentMono
                 .flatMap(this.generalValidator::validate)
-                .flatMap(estudiante -> service.listById(estudiante.getDni())
+                .flatMap(student -> service.listById(student.getDni())
                         .flatMap(e -> ServerResponse.status(HttpStatus.BAD_REQUEST)
                                 .body(BodyInserters.fromValue("Student already exist")))
-                        .switchIfEmpty(service.register(estudiante)
+                        .switchIfEmpty(service.register(student)
                                 .flatMap(p -> ServerResponse.created(URI.create(req.uri().toString().concat("/").concat(p.getId())))
                                         .contentType(MediaType.APPLICATION_STREAM_JSON)
                                         .body(fromValue(p))))
@@ -73,28 +74,27 @@ public class StudentHandler {
     }
 
     public Mono<ServerResponse> modify(ServerRequest req) {
-        Mono<Student> platoMono = req.bodyToMono(Student.class);
+        Mono<Student> studentMono = req.bodyToMono(Student.class);
 
-        return platoMono
+        return studentMono
                 .flatMap(this.generalValidator::validate)
-                .flatMap(estudiante -> service.listById(estudiante.getId())
-                        .flatMap(estudianteEncontrado -> {
-                            estudiante.setId(estudianteEncontrado.getId());
-                            return service.modify(estudiante)
+                .flatMap(student -> service.listById(student.getId())
+                        .flatMap(studentFound ->
+                            service.modify(student)
                                     .flatMap(p -> ServerResponse.ok()
                                             .contentType(MediaType.APPLICATION_STREAM_JSON)
-                                            .body(fromValue(p)));
-                        }))
+                                            .body(fromValue(p)))
+                        ))
                 .switchIfEmpty(ServerResponse.notFound().build());
     }
 
     public Mono<ServerResponse> delete(ServerRequest req) {
-        String dni = req.pathVariable("idStudent");
+        Optional<String> dni = req.queryParam("idStudent");
 
-        return service.listById(dni)
+        return service.listById(dni.get())
                 .flatMap(p -> service.delete(p.getId())
                         .then(ServerResponse
-                                .noContent()
+                                .ok()
                                 .build()
                         )
                 )

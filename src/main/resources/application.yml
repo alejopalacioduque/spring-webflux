@@ -4,18 +4,18 @@ spring:
     mongodb:
       authentication-database: admin
       username: root
-      password: pass
+      password: password
       database: academic
       port: 27017
       host: localhost
 
-  jjwt:
-    secret: 4u7x!A%D*G-KaNdRgUkXp2s5v8y/B?E(H+MbQeShVmYq3t6w9z$C&F)J@NcRfUjW
-    expiration: 120
+jjwt:
+  secret: 4u7x!A%D*G-KaNdRgUkXp2s5v8y/B?E(H+MbQeShVmYq3t6w9z$C&F)J@NcRfUjW
+  expiration: 120
 
-  springreactive:
-    username: admin
-    pass: root
+springreactive:
+  username: admin
+  pass: root
 
 
 springdoc:

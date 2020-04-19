@@ -6,5 +6,5 @@ import reactor.core.publisher.Mono;
 
 public interface IUserRepo extends ReactiveMongoRepository<User, String> {
 
-    Mono<User> findOneByUserId(String userId);
+    Mono<User> findOneByUser(String user);
 }

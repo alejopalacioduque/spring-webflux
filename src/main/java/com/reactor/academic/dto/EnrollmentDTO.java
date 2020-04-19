@@ -14,11 +14,9 @@ import java.util.List;
 public class EnrollmentDTO {
 
     @NotNull(message = "The field student is required")
-    @NotEmpty(message = "The field student is required")
     private Student student;
 
     @NotNull(message = "The field enrollment list is required")
-    @NotBlank(message = "The field enrollment list is required")
     private List<Course> enrollmentList;
 
     @NotNull(message = "The field state is required")

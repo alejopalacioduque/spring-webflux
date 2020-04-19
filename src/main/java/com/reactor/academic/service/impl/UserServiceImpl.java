@@ -6,12 +6,14 @@ import com.reactor.academic.repository.IUserRepo;
 import com.reactor.academic.security.UserSecurity;
 import com.reactor.academic.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class UserServiceImpl implements IUserService {
 
     private IUserRepo repo;
@@ -47,12 +49,12 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public Mono<UserSecurity> findByUser(String usuario) {
-        Mono<User> monoUsuario = repo.findOneByUserId(usuario);
+    public Mono<UserSecurity> findByUser(String user) {
+        Mono<User> monoUser = repo.findOneByUser(user);
 
         List<String> roles = new ArrayList<String>();
 
-        return monoUsuario.doOnNext(u -> {
+        return monoUser.doOnNext(u -> {
             for (Rol role : u.getRoles()) {
                 roles.add(role.getName());
             }

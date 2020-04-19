@@ -42,47 +42,61 @@ public class StudentController {
         return Mono.just(ResponseEntity.ok().contentType(MediaType.APPLICATION_STREAM_JSON).body(fx));
     }
 
-    @GetMapping("/{idStudent}")
-    public Mono<ResponseEntity<StudentDTO>> listById(@Valid @PathVariable String idStudent){
+    @GetMapping("/listById")
+    public Mono<ResponseEntity<StudentDTO>> listById(@Valid @RequestParam(name = "idStudent") String idStudent){
         return service.listById(idStudent)
                 .map(p -> ResponseEntity.ok()
                         .contentType(MediaType.APPLICATION_STREAM_JSON)
                         .body(studentMapper.toDTO(p))
                 )
                 .defaultIfEmpty(ResponseEntity.notFound().build())
-                .onErrorMap(error -> new CourseException("Error to list the student with ID:" + idStudent));
+                .onErrorMap(error -> new StudentException("Error to list the student with ID:" + idStudent));
     }
 
     @PostMapping
     public Mono<ResponseEntity<StudentDTO>> register(@Valid @RequestBody StudentDTO studentDTO, final ServerHttpRequest req){
-        return service.register(studentMapper.toEntity(studentDTO))
+        return service.listById(studentDTO.getId()).flatMap( student ->
+                Mono.just(ResponseEntity.accepted()
+                        .contentType(MediaType.APPLICATION_STREAM_JSON)
+                .body(studentMapper.toDTO(student)))
+        ).switchIfEmpty(
+                service.register(studentMapper.toEntity(studentDTO))
                 .map(p -> ResponseEntity.created(URI.create(req.getURI().toString().concat("/").concat(p.getId())))
                         .contentType(MediaType.APPLICATION_STREAM_JSON)
                         .body(studentMapper.toDTO(p))
-                ).onErrorMap(error -> new StudentException("Error to register the student with Id:" + studentDTO.getId()));
+                ).onErrorMap(error ->
+                        new StudentException("Error to register the student with Id:" + studentDTO.getId()))
+        );
     }
 
     @PutMapping
     public Mono<ResponseEntity<StudentDTO>> modify(@Valid @RequestBody StudentDTO studentDTO){
-        return service.modify(studentMapper.toEntity(studentDTO))
-                .map(p -> ResponseEntity.ok()
-                        .contentType(MediaType.APPLICATION_STREAM_JSON)
-                        .body(studentMapper.toDTO(p))
-                )
-                .defaultIfEmpty(ResponseEntity.notFound().build())
-                .onErrorMap(error -> new CourseException("Error to modify the student with ID:" + studentDTO.getId()));
+        return service.listById(studentDTO.getId())
+                .switchIfEmpty(
+                    Mono.error(new StudentException("Student with ID:" + studentDTO.getId() + " Not found"))
+                ).flatMap( student ->
+                        service.modify(studentMapper.toEntity(studentDTO))
+                                .map(p -> ResponseEntity.ok()
+                                        .contentType(MediaType.APPLICATION_STREAM_JSON)
+                                        .body(studentMapper.toDTO(p))
+                                )
+                        .defaultIfEmpty(ResponseEntity.notFound().build())
+                        .onErrorMap(error ->
+                                new StudentException("Error to modify the student with ID:" + studentDTO.getId()))
+
+                );
     }
 
-    @DeleteMapping("/{idStudent}")
-    public Mono<ResponseEntity<Void>> delete(@Valid @PathVariable String idStudent){
+    @DeleteMapping()
+    public Mono<ResponseEntity<Void>> delete(@Valid @RequestParam(name = "idStudent") String idStudent){
         return service.listById(idStudent)
                 .flatMap(est ->
                         service.delete(idStudent)
-                                .then(Mono.just(new ResponseEntity<Void>(HttpStatus.NO_CONTENT)))
+                                .then(Mono.just(new ResponseEntity<Void>(HttpStatus.OK)))
                 )
                 .defaultIfEmpty(ResponseEntity.notFound().build())
                 .onErrorMap(error ->
-                        new CourseException(String.format("Error al eliminar el estudiante con Id: %s", idStudent))
+                        new StudentException(String.format("Error al eliminar el estudiante con Id: %s", idStudent))
                 );
     }
 

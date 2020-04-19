@@ -2,6 +2,8 @@ package com.reactor.academic.handler;
 
 import com.reactor.academic.documment.Course;
 import com.reactor.academic.documment.Enrollment;
+import com.reactor.academic.exception.CourseException;
+import com.reactor.academic.service.ICourseService;
 import com.reactor.academic.service.IEnrollmentService;
 import com.reactor.academic.service.IStudentService;
 import com.reactor.academic.validators.RequestValidator;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.net.URI;
@@ -25,11 +28,19 @@ public class EnrollmentHandler {
 
     private final RequestValidator generalValidator;
 
+    private IStudentService studentService;
+
+    private ICourseService courseService;
+
     @Autowired
     public EnrollmentHandler(IEnrollmentService service,
-                          RequestValidator generalValidator) {
+                             RequestValidator generalValidator,
+                             IStudentService studentService,
+                             ICourseService courseService) {
         this.service = service;
         this.generalValidator = generalValidator;
+        this.studentService = studentService;
+        this.courseService = courseService;
     }
 
     public Mono<ServerResponse> list(ServerRequest req) {
@@ -43,10 +54,25 @@ public class EnrollmentHandler {
 
         return enrollmentMono
                 .flatMap(this.generalValidator::validate)
-                .flatMap(service::register)
-                .flatMap(p -> ServerResponse.created(URI.create(req.uri().toString().concat("/").concat(p.getId())))
-                        .contentType(MediaType.APPLICATION_STREAM_JSON)
-                        .body(fromValue(p))
+                .flatMap(enrollment ->
+                        studentService.listById(enrollment.getStudent().getId())
+                        .flatMap(student ->
+                                Flux.fromIterable(enrollment.getEnrollmentList()).flatMap(course ->
+                                        courseService.listById(course.getId()).switchIfEmpty(
+                                                Mono.error(new CourseException("Course with ID:" + course.getId() + " Not found"))
+                                        )
+
+                                ).then(
+                                        service.register(enrollment).flatMap(p -> ServerResponse.created(
+                                                URI.create(req.uri().toString().concat("/").concat(p.getId())))
+                                                .contentType(MediaType.APPLICATION_STREAM_JSON)
+                                                .body(fromValue(p))
+                                        )
+                                )
+                        )
+                        .switchIfEmpty( ServerResponse.status(HttpStatus.BAD_REQUEST)
+                                        .body(BodyInserters.fromValue("Student with ID: " + enrollment.getStudent().getId() +" not exist"))
+                        )
                 );
 
     }

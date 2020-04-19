@@ -13,6 +13,7 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
 import java.net.URI;
+import java.util.Optional;
 
 import static org.springframework.web.reactive.function.BodyInserters.fromValue;
 
@@ -37,9 +38,9 @@ public class CourseHandler {
     }
 
     public Mono<ServerResponse> listById(ServerRequest req) {
-        String id = req.pathVariable("idCourse");
+        Optional<String> id = req.queryParam("idCourse");
 
-        return service.listById(id)
+        return service.listById(id.get())
                 .flatMap(p -> ServerResponse.ok()
                         .contentType(MediaType.APPLICATION_STREAM_JSON)
                         .body(fromValue(p))
@@ -52,14 +53,14 @@ public class CourseHandler {
     }
 
     public Mono<ServerResponse> register(ServerRequest req) {
-        Mono<Course> platoMono = req.bodyToMono(Course.class);
+        Mono<Course> courseMono = req.bodyToMono(Course.class);
 
-        return platoMono
+        return courseMono
                 .flatMap(this.generalValidator::validate)
-                .flatMap(curso -> service.listById(curso.getId())
+                .flatMap(course -> service.listById(course.getId())
                         .flatMap(c -> ServerResponse.status(HttpStatus.BAD_REQUEST)
                                 .body(BodyInserters.fromValue("Course already exist")))
-                        .switchIfEmpty(service.register(curso)
+                        .switchIfEmpty(service.register(course)
                                 .flatMap(p -> ServerResponse.created(URI.create(req.uri().toString().concat("/").concat(p.getId())))
                                         .contentType(MediaType.APPLICATION_STREAM_JSON)
                                         .body(fromValue(p))))
@@ -67,33 +68,32 @@ public class CourseHandler {
     }
 
     public Mono<ServerResponse> modify(ServerRequest req) {
-        Mono<Course> platoMono = req.bodyToMono(Course.class);
+        Mono<Course> courseMono = req.bodyToMono(Course.class);
 
-        return platoMono
+        return courseMono
                 .flatMap(this.generalValidator::validate)
-                .flatMap(curso -> service.listById(curso.getId())
-                        .flatMap(cursoEncontrado -> {
-                            if (cursoEncontrado != null) {
-                                return service.register(curso)
-                                        .flatMap(p -> ServerResponse.ok()
-                                                .contentType(MediaType.APPLICATION_STREAM_JSON)
-                                                .body(fromValue(p)));
-                            } else {
-                                return ServerResponse
-                                        .notFound()
-                                        .build();
-                            }
-                        }));
+                .flatMap(course -> service.listById(course.getId())
+                        .flatMap(courseFound ->
+                                service.register(course)
+                                    .flatMap(p -> ServerResponse.ok()
+                                            .contentType(MediaType.APPLICATION_STREAM_JSON)
+                                            .body(fromValue(p)))
+                        )
+                        ).switchIfEmpty(
+                            ServerResponse
+                                .notFound()
+                                .build()
+                        );
 
     }
 
     public Mono<ServerResponse> delete(ServerRequest req) {
-        String id = req.pathVariable("idCourse");
+        Optional<String> id = req.queryParam("idCourse");
 
-        return service.listById(id)
+        return service.listById(id.get())
                 .flatMap(p -> service.delete(p.getId())
                         .then(ServerResponse
-                                .noContent()
+                                .ok()
                                 .build()
                         )
                 )
